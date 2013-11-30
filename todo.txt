@@ -1,0 +1,92 @@
+DONE:
+				Spring Integration
+				General Admin for servers and users
+				GatherAllCastleData for get data for all castles
+				Spring Security and access levels, including db users
+				Default gathering account, plus gathering improvements
+				Login, registering, server identification and access for lk accounts
+				Basic JSTL and CSS
+				Forgot password
+				Fix gathering all castles logging
+				Admin forms prettiness
+				Page hierarchy and access structure
+				Maps
+				Searches
+				Page Headings
+				Type ahead search for various fields
+				Castle Reports
+				Custom 403
+				Emoji integration
+				User Rights and Access
+				Report Homepage
+				User Homepage
+				Main Text and Links
+				Main Homepage
+				Alliance Leaderboards Reports
+					Top Users Points
+					Top Users Points Growth
+					Top Users Castles
+					Top Users Castles Growth
+					Top Users Rank
+					Top Users Rank Growth
+					Top Users Alliance Rank
+					Top Users Alliance Rank Growth
+				Pie chart of active vs inactive members
+				Alliance Reports
+					Fix New and lost castles
+				Split new and lost alliance castles into:
+					New castles gained through battle
+					New castles gained through members joining
+					Lost castles through battle
+					Lost castles through members leaving
+				Player Reports
+					Fix New castles
+				Player Reports
+					Fix lost castles
+				Compare Reports
+				Map Creator
+				Map Image lazy loading - eg progress icon
+				Ensure that ids work for type ahead and search
+				Try and look into alias for strange characters for searches
+				
+IN PROGRESS:
+				
+				Maps Creator Controls and links
+				Clickable and copy links for castles, players and alliances
+				
+TODO:
+				Battle Calculator
+				Hover over / select existing filters to update / show on map
+				Ensure that graphs heights are bigger (to take into account legend)
+				Ensure compare 'main details' tables are responsive, eg, scroll left and right
+				Ensure all castles on map are captured
+				Custom 404
+				War Score
+				Suggestions
+				Ensure JMS tasks are truly multithreaded
+				Emoji triggers for post ajax events
+				Global messages for all users
+				Introduce the idea of strongholds for reporting
+				Standard reports for standard data and crusader data
+				Additional player data gathering - reports (add data to other castles too), troop movements, attacks etc
+				Additional castle data
+				Exception handling
+				Queuing mechanism for jobs, aka JMS, including threading and retry count, db queues logs, results and ajax log readers / queue display
+				Change queueing mechanism to ZeroMQ for better performance
+				Selenium Grid2 integration
+				Search by castle co-ordinates
+				Unit tests
+				Display gathering logs / progress to user
+				Create queries and reporting
+				Form validation
+				Spring Messages
+				Multi server - server specific database and config, including timezone
+				
+				Mobile Site - Attack / Defense Planner (based on that user's castles (lhs) and spy reports & co-ords (rhs))
+							- Attack / Defense Reminder (based on attack plans) - email, text, app toast
+							- Attack / Defense Calculator (based on castles and reports or attack plans, take into consideration library skills
+							- Alliance Data (and reports)
+							- Map creator
+							
+				Mobile Apps based on mobile site
+				Server time changes, eg british summer time

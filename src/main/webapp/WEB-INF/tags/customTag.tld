@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<tlib-version>2.0</tlib-version>
+	<short-name>lk</short-name>
+	<uri>/WEB-INF/tags/custom</uri>
+
+
+	<!-- <function>
+		<name>isUserSpecificRole</name>
+		<function-class>com.dangarfield.lkhelper.utils.tags.CustomEL</function-class>
+		<function-signature>java.lang.Boolean
+			isUserSpecificRole(java.lang.String,
+			com.dangarfield.lkhelper.data.users.UserData)</function-signature>
+	</function> -->
+
+	<tag>
+		<description>This tag prints a random number</description>
+		<name>stringToEmoji</name>
+		<tag-class>com.dangarfield.lkhelper.utils.tags.StringToEmoji</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>original</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>This tag creates the query string for map images</description>
+		<name>createQueryStringForImage</name>
+		<tag-class>com.dangarfield.lkhelper.utils.tags.CreateQueryStringForImage</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>clear</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>thickness</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>base</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>colour</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	
+	<tag>
+		<description>This tag creates the query string for compare map images</description>
+		<name>compareMapConstructor</name>
+		<tag-class>com.dangarfield.lkhelper.utils.tags.CompareMapConstructor</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>castles</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>players</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>alliances</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<!-- <function> <name>stringToEmoji</name> <function-class>com.dangarfield.lkhelper.utils.tags.CustomEL</function-class> 
+		<function-signature> java.lang.String stringToEmoji(java.lang.String) </function-signature> 
+		</function> -->
+
+</taglib>

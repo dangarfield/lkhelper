@@ -1,0 +1,248 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:amq="http://activemq.apache.org/schema/core" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.0.xsd
+        http://www.springframework.org/schema/jms 
+		http://www.springframework.org/schema/jms/spring-jms.xsd
+		http://activemq.apache.org/schema/core 
+		http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+    
+    
+   	<!-- GATHER ALL CASTLE DATA DEFAULT USER: START -->
+	<util:map id="gatherCastleDataDefaultUser" map-class="java.util.HashMap">
+        <entry key="uk3" value="dangarfielduk@hotmail.com"/>
+    </util:map>
+	<!-- GATHER ALL CASTLE DATA DEFAULT USER: START -->
+	
+	
+	
+	
+	<!-- RESERVED USERS: START -->
+	<util:list id="userRightsCrusaderAlliance" value-type="java.lang.String">
+    	<value>uk3_15029</value> <!-- Crusaders -->
+	</util:list>
+	
+	<util:list id="userRightsReporters" value-type="java.lang.String">
+    	<value>uk3_108147</value> <!-- DanGarfield -->
+    	<value>uk3_83116</value> <!-- CaptainMarvel -->
+    	<value>uk3_74395</value> <!-- RobinHood -->
+    	<value>uk3_99784</value> <!-- DarthCrusher -->
+    	<value>uk3_5826</value> <!-- PapaMark -->
+    	<value>uk3_8924</value> <!-- noname -->
+    	<value>uk3_136749</value> <!-- MrOverkill -->
+    	<value>uk3_97587</value> <!-- RedBear -->
+    	<value>uk3_95346</value> <!-- GhostRider -->
+    	<value>uk3_1103</value> <!-- DanHadley -->
+	</util:list>
+	
+	<util:list id="userRightsAdmins" value-type="java.lang.String">
+    	<value>uk3_108147</value> <!-- DanGarfield -->
+	</util:list>
+	<!-- RESERVED USERS: END -->
+
+
+
+
+    
+	<!-- UTILS: START -->
+	<bean id="configUtils" class="com.dangarfield.lkhelper.utils.impl.ConfigUtilsImpl" />
+
+	<bean id="driverUtils" class="com.dangarfield.lkhelper.utils.impl.DriverUtilsImpl" />
+	
+	<bean id="userUtils" class="com.dangarfield.lkhelper.utils.impl.UserUtilsImpl">
+	    <property name="userRightsCrusaderAlliance" ref="userRightsCrusaderAlliance" />
+	    <property name="userRightsReporters" ref="userRightsReporters" />
+	    <property name="userRightsAdmins" ref="userRightsAdmins" />
+	</bean>
+
+	<bean id="generalUtils" class="com.dangarfield.lkhelper.utils.impl.GeneralUtilsImpl" />
+
+	<bean id="lkUtils" class="com.dangarfield.lkhelper.utils.impl.LKUtilsImpl" />
+	<!-- UTILS: END -->
+
+
+
+
+
+	<!-- DB: START xmlns:mongo="http://www.springframework.org/schema/data/mongo" -->
+	<bean id="mongo" class="com.mongodb.Mongo">
+		<constructor-arg value="localhost" />
+	</bean>
+	<bean id="mongoDBName" class="java.lang.String">
+		<constructor-arg value="lkhelper" />
+	</bean>
+
+	<!-- DB: END -->
+
+
+
+
+
+	<!-- DAO: START -->
+	<bean id="castleDAO" class="com.dangarfield.lkhelper.dao.impl.CastleDAOImpl">
+		<property name="jongo" ref="jongo" />
+		<property name="generalUtils" ref="generalUtils" />
+	</bean>
+	<bean id="allianceDAO" class="com.dangarfield.lkhelper.dao.impl.AllianceDAOImpl">
+		<property name="jongo" ref="jongo" />
+		<property name="generalUtils" ref="generalUtils" />
+	</bean>
+	<bean id="playerDAO" class="com.dangarfield.lkhelper.dao.impl.PlayerDAOImpl">
+		<property name="jongo" ref="jongo" />
+		<property name="generalUtils" ref="generalUtils" />
+	</bean>
+	<bean id="userDAO" class="com.dangarfield.lkhelper.dao.impl.UserDAOImpl">
+		<constructor-arg ref="jongo" />
+	</bean>
+	<bean id="serverDAO" class="com.dangarfield.lkhelper.dao.impl.ServerDAOImpl">
+		<constructor-arg ref="jongo" />
+	</bean>
+	<bean id="jmsJobDAO" class="com.dangarfield.lkhelper.dao.impl.JMSJobDAOImpl">
+		<constructor-arg ref="jongo" />
+	</bean>
+
+	<!-- DAO: END -->
+
+
+
+
+	<!-- START: START -->
+	<bean id="reportService" class="com.dangarfield.lkhelper.service.impl.ReportServiceImpl">
+		
+	</bean>
+	<bean id="imageProcessingService" class="com.dangarfield.lkhelper.service.impl.ImageProcessingServiceImpl">
+		
+	</bean>
+	<!-- SERVICES: END -->
+
+
+	<!-- CONVERTERS: START -->
+	<bean id="castleDataJsonConverter"
+		class="com.dangarfield.lkhelper.converter.impl.CastleDataJsonConverterImpl">
+		<property name="castleDAO" ref="castleDAO" />
+		<property name="allianceDAO" ref="allianceDAO" />
+		<property name="generalUtils" ref="generalUtils" />
+	</bean>
+	<!-- CONVERTERS: END -->
+
+
+
+
+	<!-- SELENIUM PAGE CONTROLLERS: START -->
+	<bean id="lkHttpRequestController"
+		class="com.dangarfield.lkhelper.pagecontroller.impl.LKHttpRequestControllerImpl">
+		<property name="lkMainPageController" ref="lkMainPageController" />
+	</bean>
+
+	<bean id="lkMainPageController"
+		class="com.dangarfield.lkhelper.pagecontroller.impl.LKMainPageControllerImpl" />
+
+	<bean id="lkLoginPageController"
+		class="com.dangarfield.lkhelper.pagecontroller.impl.LKLoginPageControllerImpl" />
+	<!-- SELENIUM PAGE CONTROLLERS: END -->
+
+
+
+
+	<!-- SELENIUM TESTS: START -->
+	<bean id="abstractGatherBase"
+		class="com.dangarfield.lkhelper.seleniumtest.impl.AbstractGatherBaseImpl"
+		abstract="true">
+		<property name="lkLoginPageController" ref="lkLoginPageController" />
+		<property name="lkMainPageController" ref="lkMainPageController" />
+		<property name="lkHttpRequestController" ref="lkHttpRequestController" />
+		<property name="castleDataJsonConverter" ref="castleDataJsonConverter" />
+		<property name="configUtils" ref="configUtils" />
+		<property name="lkUtils" ref="lkUtils" />
+		<property name="generalUtils" ref="generalUtils" />
+		<property name="driverUtils" ref="driverUtils" />
+		<property name="castleDAO" ref="castleDAO" />
+	</bean>
+
+	<bean id="gatherAllCastleData"
+		class="com.dangarfield.lkhelper.seleniumtest.impl.GatherAllCastleDataImpl"
+		parent="abstractGatherBase" />
+
+	<bean id="gatherPlayerData"
+		class="com.dangarfield.lkhelper.seleniumtest.impl.GatherPlayerCastleDataImpl"
+		parent="abstractGatherBase" />
+
+	<bean id="authenticateUser"
+		class="com.dangarfield.lkhelper.seleniumtest.impl.AuthenticateUserImpl"
+		parent="abstractGatherBase" />
+	<!-- SELENIUM TESTS: END -->
+
+
+
+
+
+
+	<!-- JMS Consumer: START -->
+	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
+		p:brokerURL="vm://localhost:61616" />
+
+	<bean id="lkJmsDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="LK.GATHER.QUEUE" />
+	</bean>
+
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"
+		p:connectionFactory-ref="connectionFactory" p:defaultDestination-ref="lkJmsDestination" />
+
+	<bean id="lkMessageListener" class="com.dangarfield.lkhelper.jms.GatherMessageListener" />
+
+	<!-- This is the Spring DefaultMessageListenerContainer (DMLC). All default 
+		values for the DMLC are used except for concurrency; By default the DMLC 
+		knows to use the bean whose name is connectionFactory. -->
+	<jms:listener-container concurrency="1">
+		<jms:listener destination="LK.GATHER.QUEUE" ref="lkMessageListener" />
+	</jms:listener-container>
+	<!-- JMS Consumer: END -->
+
+	<!-- JMS Producer: START -->
+	<bean id="messageProducer" class="com.dangarfield.lkhelper.jms.GatherMessageSender"
+		p:jmsTemplate-ref="jmsTemplate" />
+	<!-- JMS Producer: END -->
+
+
+
+
+
+
+
+	<!-- Quartz Scheduler: START -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="gatherAllDataCronJob"/>
+            </list>
+        </property>
+         <property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+		<property name="jobFactory">
+			<bean class="com.dangarfield.lkhelper.cron.AutowiringSpringBeanJobFactory"/>
+		</property>
+    </bean>
+ 
+    <!--CronJobs Defined-->
+    <bean id="gatherAllDataCronJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="gatherAllDataCronJobDetail" />
+        <!-- <property name="cronExpression" value="0 0 1 ? * *" /> -->
+    	<!--Daily Morning 1-->
+    	<property name="cronExpression" value="0 12 18 ? * *" />
+    </bean>
+ 
+    <!--Cron Task Defined-->
+    <bean id="gatherAllDataCronJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="com.dangarfield.lkhelper.cron.GatherAllDataCronJob" />
+    </bean>
+	
+	<!-- Quartz Scheduler: END -->
+	
+</beans>
